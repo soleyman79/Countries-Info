@@ -1,15 +1,11 @@
 package edu.web.countries.models;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@ToString
 public class Country {
     private String gdp;
     private String sex_ratio;

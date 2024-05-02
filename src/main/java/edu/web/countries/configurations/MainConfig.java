@@ -14,13 +14,17 @@ import java.util.List;
 @Configuration
 public class MainConfig {
     @Bean
-    public RestTemplate restTemplate() {
+    public RestTemplate restTemplate(MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter) {
         RestTemplate restTemplate = new RestTemplate();
-//        List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
-//        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-//        messageConverters.add(converter);
-//        restTemplate.setMessageConverters(messageConverters);
+        List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
+        messageConverters.add(mappingJackson2HttpMessageConverter);
+        restTemplate.setMessageConverters(messageConverters);
         return restTemplate;
+    }
+
+    @Bean
+    public MappingJackson2HttpMessageConverter mappingJacksonHttpMessageConverter() {
+        return new MappingJackson2HttpMessageConverter();
     }
 
 
