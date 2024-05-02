@@ -1,6 +1,8 @@
 package edu.web.countries.services;
 
 import edu.web.countries.models.Country;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -14,18 +16,12 @@ import java.util.List;
 
 @Service
 public class NinjaAPI {
-    private final RestTemplate restTemplate;
     @Value("${ninja.token}")
     private String token;
 
-    public NinjaAPI(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
-    }
-
-
-    public ResponseEntity<String> getAllCountries() {
-        return restTemplate.getForEntity("https://countriesnow.space/api/v0.1/countries", String.class);
-    }
+    @Autowired
+    @Qualifier("ninjaRestTemplate")
+    private RestTemplate restTemplate;
 
     public ResponseEntity<List<Country>> getCountryByName(String name) {
         HttpHeaders headers = new HttpHeaders();
