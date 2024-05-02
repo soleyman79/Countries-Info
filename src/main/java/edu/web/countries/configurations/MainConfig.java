@@ -1,7 +1,7 @@
 package edu.web.countries.configurations;
 
-import edu.web.countries.controllers.MainController;
-import edu.web.countries.services.ExternalAPI;
+import edu.web.countries.controllers.CountryController;
+import edu.web.countries.services.NinjaAPI;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
@@ -15,12 +15,12 @@ public class MainConfig {
 
 
     @Bean
-    public ExternalAPI externalAPI(RestTemplate restTemplate) {
-        return new ExternalAPI(restTemplate);
+    public NinjaAPI externalAPI(RestTemplate restTemplate) {
+        return new NinjaAPI(restTemplate);
     }
 
     @Bean
-    public MainController mainController(ExternalAPI externalAPI) {
-        return new MainController(externalAPI);
+    public CountryController countryController(NinjaAPI externalAPI) {
+        return new CountryController(externalAPI);
     }
 }
