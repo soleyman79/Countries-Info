@@ -1,5 +1,6 @@
 package edu.web.countries.controllers;
 
+import edu.web.countries.models.Country;
 import edu.web.countries.services.NinjaAPI;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,7 @@ public class CountryController {
 
     @GetMapping("/{name}")
     public String getCountryByName(@PathVariable String name) {
-        return this.ninjaAPI.getCountryByName(name).getBody();
+       return this.ninjaAPI.getCountryByName(name).getBody().toString();
+//       return new Country().toString();
     }
 }

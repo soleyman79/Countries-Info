@@ -1,5 +1,6 @@
 package edu.web.countries.services;
 
+import edu.web.countries.models.Country;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -31,7 +32,7 @@ public class NinjaAPI {
                 String.format("https://api.api-ninjas.com/v1/country?name=%s", name),
                 HttpMethod.GET,
                 request,
-                String.class
+                String.class // TODO change to Country.class
         );
     }
 }
