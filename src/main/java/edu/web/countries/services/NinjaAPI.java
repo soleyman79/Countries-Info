@@ -1,5 +1,6 @@
 package edu.web.countries.services;
 
+import edu.web.countries.exceptions.CountryNotFound;
 import edu.web.countries.models.ninja.Country;
 import edu.web.countries.models.ninja.CountryDTO;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,8 +22,11 @@ public class NinjaAPI {
     }
 
     public CountryDTO getCountryByName(String name) {
-        Country country = this.getCountryByNameResponse(name).getBody()[0];
-        return new CountryDTO(country);
+        Country[] countries = this.getCountryByNameResponse(name).getBody();
+        if (countries.length == 0) {
+            throw new CountryNotFound();
+        }
+        return new CountryDTO(countries[0]);
     }
 
     private ResponseEntity<Country[]> getCountryByNameResponse(String name) {
