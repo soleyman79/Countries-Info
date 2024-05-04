@@ -33,7 +33,7 @@ public class MainController {
     }
 
     @GetMapping("/{name}")
-    public String getCountryByName(@PathVariable String name) {
-        return this.ninjaAPI.getCountryByName(name).getBody().toString();
+    public Map<String, Object> getCountryByName(@PathVariable String name) {
+        return this.ninjaAPI.getCountryByName(name).getHashMap();
     }
 }
