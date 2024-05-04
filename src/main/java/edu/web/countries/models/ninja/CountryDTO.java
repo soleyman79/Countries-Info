@@ -22,7 +22,7 @@ public class CountryDTO {
         this.capital = country.getCapital();
         this.iso2 = country.getIso2();
         this.population = country.getPopulation();
-        this.popGrowth = country.getPop_growth();
+        this.popGrowth = country.getPopGrowth();
         this.currency = country.getCurrency();
     }
 

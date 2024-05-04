@@ -36,4 +36,9 @@ public class MainController {
     public Map<String, Object> getCountryByName(@PathVariable String name) {
         return this.ninjaAPI.getCountryByName(name).getHashMap();
     }
+
+    @GetMapping("/{name}/weather")
+    public Map<String, Object> getWeatherByCity(@PathVariable String name) {
+        return this.ninjaAPI.getWeatherByCountry(name).getHashMap();
+    }
 }
