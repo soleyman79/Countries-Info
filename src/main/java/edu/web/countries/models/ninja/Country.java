@@ -1,4 +1,4 @@
-package edu.web.countries.models;
+package edu.web.countries.models.ninja;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -45,6 +45,4 @@ public class Country {
     private String fertility;
     private String refugees;
     private String primary_school_enrollment_male;
-
-
 }

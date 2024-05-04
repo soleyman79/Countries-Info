@@ -1,4 +1,4 @@
-package edu.web.countries.models;
+package edu.web.countries.models.ninja;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
