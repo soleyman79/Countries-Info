@@ -18,3 +18,8 @@ spring:
 
 ninja:
   token: 6AEi0xX6fJROGQP1E6iQTQ==0tT5F9mnoZaGY71h
+
+token:
+   expiration: 3600000
+   secret:
+     key: 84dc803a70652c66bc6610f82728657e59bc3181a8632cae2ac52cf3e7ac4d76

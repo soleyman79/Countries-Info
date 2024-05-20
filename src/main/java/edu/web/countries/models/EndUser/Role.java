@@ -1,6 +1,6 @@
 package edu.web.countries.models.EndUser;
 
-public enum Rule {
+public enum Role {
     ADMIN,
     USER
 }
