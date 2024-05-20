@@ -1,6 +1,6 @@
 package edu.web.countries.repositories;
 
-import edu.web.countries.models.EndUser;
+import edu.web.countries.models.EndUser.EndUser;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

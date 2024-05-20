@@ -1,6 +1,6 @@
 package edu.web.countries.services;
 
-import edu.web.countries.models.EndUser;
+import edu.web.countries.models.EndUser.EndUser;
 import edu.web.countries.repositories.EndUserRepository;
 import org.springframework.stereotype.Service;
 

@@ -1,5 +1,6 @@
 package edu.web.countries.configurations;
 
+import edu.web.countries.controllers.AdminController;
 import edu.web.countries.controllers.MainController;
 import edu.web.countries.controllers.UserController;
 import edu.web.countries.repositories.EndUserRepository;
@@ -26,5 +27,10 @@ public class MainConfig {
     @Bean
     UserController userController(EndUserService endUserService, PasswordEncoder passwordEncoder) {
         return new UserController(endUserService, passwordEncoder);
+    }
+
+    @Bean
+    AdminController adminController(EndUserRepository endUserRepository) {
+        return new AdminController(endUserRepository);
     }
 }

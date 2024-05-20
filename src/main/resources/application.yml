@@ -9,13 +9,12 @@ spring:
   jpa:
     open-in-view: false
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
   boot:
     admin:
       client:
         username: admin
         password: admin
 
-# External API
 ninja:
   token: 6AEi0xX6fJROGQP1E6iQTQ==0tT5F9mnoZaGY71h

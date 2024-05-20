@@ -1,4 +1,4 @@
-package edu.web.countries.models;
+package edu.web.countries.models.EndUser;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
@@ -9,16 +9,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
-@Entity(name = "end_user")
+@Entity
 @Data
 @NoArgsConstructor
 public class EndUser {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     int id;
     @JsonProperty("username")
     private String username;
     @JsonProperty("password")
     private String password;
-    private boolean isActive;
+    private boolean active;
+    private Rule rule;
 }
