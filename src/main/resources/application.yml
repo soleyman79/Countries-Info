@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: Countries
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:3306/country
+    username: root
+    password: password
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+  boot:
+    admin:
+      client:
+        username: admin
+        password: admin
+
+# External API
+ninja:
+  token: 6AEi0xX6fJROGQP1E6iQTQ==0tT5F9mnoZaGY71h
