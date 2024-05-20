@@ -20,4 +20,5 @@ public class EndUser {
     private String username;
     @JsonProperty("password")
     private String password;
+    private boolean isActive;
 }
