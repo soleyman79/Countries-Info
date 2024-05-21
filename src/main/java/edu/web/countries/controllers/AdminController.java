@@ -26,7 +26,7 @@ public class AdminController {
         if (endUser.isEmpty())
             throw new UserNotFound();
 
-        endUser.get().setActive(active);
+//        endUser.get().setActive(active);
         this.endUserRepository.save(endUser.get());
         return String.format("User: %s\nActive: %s", username, active);
     }

@@ -1,10 +1,6 @@
 package edu.web.countries.models.EndUser;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,14 +18,13 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table
 public class EndUser implements UserDetails {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    @JsonProperty("username")
     private String username;
-    @JsonProperty("password")
     private String password;
-    private boolean active;
     @Enumerated(EnumType.STRING)
     private Role role;
 

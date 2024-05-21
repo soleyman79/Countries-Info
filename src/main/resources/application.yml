@@ -22,4 +22,6 @@ ninja:
 token:
    expiration: 3600000
    secret:
-     key: 84dc803a70652c66bc6610f82728657e59bc3181a8632cae2ac52cf3e7ac4d76
+     # $ node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+     key: 1c20ed4c028fb632e5a2306781c13842294984aeec7760664d9b338bc687712c
+
