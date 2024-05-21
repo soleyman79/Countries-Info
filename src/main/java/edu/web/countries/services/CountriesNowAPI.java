@@ -3,6 +3,7 @@ package edu.web.countries.services;
 import edu.web.countries.models.countriesNow.Country;
 import edu.web.countries.models.countriesNow.CountryDTO;
 import edu.web.countries.models.countriesNow.Response;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -31,7 +32,8 @@ public class CountriesNowAPI {
         return countryDTOs;
     }
 
-    private ResponseEntity<Response> getAllCountriesResponse() {
+    @Cacheable("countries")
+    public ResponseEntity<Response> getAllCountriesResponse() {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");
         HttpEntity<String> request = new HttpEntity<>(headers);
