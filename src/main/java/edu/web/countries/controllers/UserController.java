@@ -17,6 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     private AuthenticationService authenticationService;
 
+    public UserController(AuthenticationService authenticationService) {
+        this.authenticationService = authenticationService;
+    }
+
     @PostMapping("/register")
     public JwtAuthenticationResponse register(@RequestBody RegisterAndLoginRequest request) {
         return authenticationService.register(request);

@@ -20,7 +20,7 @@ public class AdminConfig implements CommandLineRunner {
     private final UserService userService;
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         if (userRepository.count() == 0) {
             EndUser admin = EndUser
                     .builder()
@@ -30,7 +30,7 @@ public class AdminConfig implements CommandLineRunner {
                     .build();
 
             userService.save(admin);
-            log.debug("created ADMIN user - {}", admin);
+            log.debug("ADMIN Created - {}", admin);
         }
     }
 }

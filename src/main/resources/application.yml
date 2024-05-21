@@ -10,11 +10,6 @@ spring:
     open-in-view: false
     hibernate:
       ddl-auto: create-drop
-  boot:
-    admin:
-      client:
-        username: admin
-        password: admin
 
 ninja:
   token: 6AEi0xX6fJROGQP1E6iQTQ==0tT5F9mnoZaGY71h
@@ -22,6 +17,6 @@ ninja:
 token:
    expiration: 3600000
    secret:
-     # $ node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
-     key: 1c20ed4c028fb632e5a2306781c13842294984aeec7760664d9b338bc687712c
+     key: fdbf77893be4d92dcd153efc9e63e74fed21237ef7caa85b1eaf3caabbb41d77
+
 

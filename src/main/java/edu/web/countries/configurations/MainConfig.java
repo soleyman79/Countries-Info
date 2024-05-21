@@ -2,7 +2,9 @@ package edu.web.countries.configurations;
 
 import edu.web.countries.controllers.AdminController;
 import edu.web.countries.controllers.MainController;
+import edu.web.countries.controllers.UserController;
 import edu.web.countries.repositories.EndUserRepository;
+import edu.web.countries.services.AuthenticationService;
 import edu.web.countries.services.CountriesNowAPI;
 import edu.web.countries.services.NinjaAPI;
 import org.springframework.context.annotation.Bean;
@@ -17,7 +19,12 @@ public class MainConfig {
     }
 
     @Bean
-    AdminController adminController(EndUserRepository endUserRepository) {
+    public AdminController adminController(EndUserRepository endUserRepository) {
         return new AdminController(endUserRepository);
+    }
+
+    @Bean
+    public UserController userController(AuthenticationService authenticationService) {
+        return new UserController(authenticationService);
     }
 }
