@@ -1,5 +1,6 @@
 package edu.web.countries.services;
 
+import edu.web.countries.exceptions.ConflictException;
 import edu.web.countries.models.EndUser.EndUser;
 import edu.web.countries.models.EndUser.Role;
 import edu.web.countries.models.Jwt.JwtAuthenticationResponse;
@@ -22,15 +23,17 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public JwtAuthenticationResponse register(RegisterAndLoginRequest request) {
-        var user = EndUser
+        EndUser user = EndUser
                 .builder()
                 .username(request.getUsername())
                 .password(this.passwordEncoder.encode(request.getPassword()))
                 .role(Role.ROLE_USER)
                 .build();
+        if (this.endUserRepository.findEndUserByUsername(request.getUsername()).isPresent())
+            throw new ConflictException("Username already Exists");
 
         user = this.userService.save(user);
-        var jwt = this.jwtService.generateToken(user);
+        String jwt = this.jwtService.generateToken(user);
         return JwtAuthenticationResponse.builder().token(jwt).build();
     }
 

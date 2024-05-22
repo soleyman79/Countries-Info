@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 
 @RestController
 @RequestMapping("/users")
@@ -22,12 +24,13 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public JwtAuthenticationResponse register(@RequestBody RegisterAndLoginRequest request) {
-        return authenticationService.register(request);
+    public Map<String, Object> register(@RequestBody RegisterAndLoginRequest request) {
+        authenticationService.register(request);
+        return Map.of("message", "User Created");
     }
 
     @PostMapping("/login")
-    public JwtAuthenticationResponse login(@RequestBody RegisterAndLoginRequest request) {
-        return this.authenticationService.login(request);
+    public Map<String, Object> login(@RequestBody RegisterAndLoginRequest request) {
+        return Map.of("token", this.authenticationService.login(request).getToken());
     }
 }

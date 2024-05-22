@@ -1,6 +1,6 @@
 package edu.web.countries.services;
 
-import edu.web.countries.exceptions.CountryNotFound;
+import edu.web.countries.exceptions.NotFoundException;
 import edu.web.countries.models.ninja.Country;
 import edu.web.countries.models.ninja.CountryDTO;
 import edu.web.countries.models.ninja.Weather;
@@ -26,7 +26,7 @@ public class NinjaAPI {
     public CountryDTO getCountryByName(String name) {
         Country[] countries = this.getCountryResponseByName(name).getBody();
         if (countries.length == 0) {
-            throw new CountryNotFound();
+            throw new NotFoundException("Country Not Found");
         }
         return new CountryDTO(countries[0]);
     }
