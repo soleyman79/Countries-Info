@@ -3,7 +3,7 @@ package edu.web.countries.controllers;
 import edu.web.countries.exceptions.BadRequestException;
 import edu.web.countries.exceptions.NotFoundException;
 import edu.web.countries.models.EndUser.EndUser;
-import edu.web.countries.repositories.EndUserRepository;
+import edu.web.countries.repositories.EndUserRepo;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,9 +15,9 @@ import java.util.Optional;
 @RequestMapping("/admin")
 @PreAuthorize("hasRole('ADMIN')")
 public class AdminController {
-    private final EndUserRepository endUserRepository;
+    private final EndUserRepo endUserRepository;
 
-    public AdminController(EndUserRepository endUserRepository) {
+    public AdminController(EndUserRepo endUserRepository) {
         this.endUserRepository = endUserRepository;
     }
 
@@ -31,7 +31,7 @@ public class AdminController {
 
         endUser.get().setActive(Boolean.parseBoolean(active));
         this.endUserRepository.save(endUser.get());
-        return Map.of("message", String.format("username: %s has been %s", username, Boolean.parseBoolean(active) ? "activated" : "deactivated"));
+        return Map.of("message", String.format("user with username: %s has been %s", username, Boolean.parseBoolean(active) ? "activated" : "deactivated"));
     }
 
     @GetMapping("/users")

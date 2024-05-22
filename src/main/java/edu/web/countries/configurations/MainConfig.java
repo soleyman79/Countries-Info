@@ -3,7 +3,7 @@ package edu.web.countries.configurations;
 import edu.web.countries.controllers.AdminController;
 import edu.web.countries.controllers.MainController;
 import edu.web.countries.controllers.UserController;
-import edu.web.countries.repositories.EndUserRepository;
+import edu.web.countries.repositories.EndUserRepo;
 import edu.web.countries.services.AuthenticationService;
 import edu.web.countries.services.CountriesNowAPI;
 import edu.web.countries.services.NinjaAPI;
@@ -19,7 +19,7 @@ public class MainConfig {
     }
 
     @Bean
-    public AdminController adminController(EndUserRepository endUserRepository) {
+    public AdminController adminController(EndUserRepo endUserRepository) {
         return new AdminController(endUserRepository);
     }
 

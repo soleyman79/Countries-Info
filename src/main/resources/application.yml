@@ -17,8 +17,6 @@ admin:
 
 token:
   ninja: 6AEi0xX6fJROGQP1E6iQTQ==0tT5F9mnoZaGY71h
-  expiration: 3600000
-  secret:
-    key: fdbf77893be4d92dcd153efc9e63e74fed21237ef7caa85b1eaf3caabbb41d77
+  secret: fdbf77893be4d92dcd153efc9e63e74fed21237ef7caa85b1eaf3caabbb41d77
 
 

@@ -2,7 +2,7 @@ package edu.web.countries.configurations;
 
 import edu.web.countries.models.EndUser.EndUser;
 import edu.web.countries.models.EndUser.Role;
-import edu.web.countries.repositories.EndUserRepository;
+import edu.web.countries.repositories.EndUserRepo;
 import edu.web.countries.services.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Slf4j
 public class AdminConfig implements CommandLineRunner {
-    private final EndUserRepository userRepository;
+    private final EndUserRepo userRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
     @Value("${admin.username}")

@@ -1,13 +1,13 @@
 package edu.web.countries.models.Jwt;
 
-import edu.web.countries.models.EndUser.Role;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 
 @Entity
@@ -22,6 +22,13 @@ public class Token {
     private Long id;
     @Column(unique = true)
     private String token;
+    @JsonProperty("name")
     private String name;
-    private LocalDateTime expireDate;
+    @JsonProperty("expire_date")
+    private String expireDate;
+    private String username;
+
+    public Long getExpireDuration() {
+        return Instant.parse(this.expireDate).toEpochMilli() - Instant.now().toEpochMilli();
+    }
 }

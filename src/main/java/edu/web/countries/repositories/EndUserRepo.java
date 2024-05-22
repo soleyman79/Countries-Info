@@ -8,6 +8,6 @@ import java.util.Optional;
 
 
 @Repository
-public interface EndUserRepository extends JpaRepository<EndUser, Integer> {
+public interface EndUserRepo extends JpaRepository<EndUser, Long> {
     Optional<EndUser> findEndUserByUsername(String username);
 }

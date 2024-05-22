@@ -28,11 +28,11 @@ public class MainController {
 
     @GetMapping("")
     public Map<String, Object> getAllCountries() {
-        Map<String, Object> map = new HashMap<>();
         List<CountryDTO> countries = this.countriesNowAPI.getAllCountries();
-        map.put("countries", countries);
-        map.put("count", String.valueOf(countries.size()));
-        return map;
+        return Map.of(
+                "countries", countries,
+                "count", String.valueOf(countries.size())
+        );
     }
 
     @GetMapping("/{name}")

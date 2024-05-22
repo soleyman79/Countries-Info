@@ -3,7 +3,7 @@ package edu.web.countries.services;
 import edu.web.countries.exceptions.ConflictException;
 import edu.web.countries.exceptions.NotFoundException;
 import edu.web.countries.models.EndUser.EndUser;
-import edu.web.countries.repositories.EndUserRepository;
+import edu.web.countries.repositories.EndUserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,7 +17,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-    private final EndUserRepository endUserRepository;
+    private final EndUserRepo endUserRepository;
 
     public UserDetailsService userDetailsService() {
         return new UserDetailsService() {
