@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+import java.util.Map;
 
 
 @Entity
@@ -30,5 +31,13 @@ public class Token {
 
     public Long getExpireDuration() {
         return Instant.parse(this.expireDate).toEpochMilli() - Instant.now().toEpochMilli();
+    }
+
+    public Map<String, Object> getDto() {
+        return Map.of(
+                "name", this.name,
+                "expire_date", this.expireDate,
+                "token", this.token.substring(0, 4) + "*".repeat(10)
+        );
     }
 }

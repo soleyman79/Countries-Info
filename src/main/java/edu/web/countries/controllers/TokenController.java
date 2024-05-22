@@ -9,7 +9,11 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -34,8 +38,13 @@ public class TokenController {
     }
 
     @GetMapping("")
-    public Map<String, Object> getTokens() {
-        return null;
+    public Map<String, Object> getTokens(@AuthenticationPrincipal EndUser user) {
+        Optional<List<Token>> optionalTokens = this.tokenRepo.findAllByUsername(user.getUsername());
+        List<Token> tokens = optionalTokens.orElseGet(ArrayList::new);
+        return Map.of(
+                "tokens", tokens.stream().map(Token::getDto).collect(Collectors.toList()),
+                "count", tokens.size()
+        );
     }
 
     @DeleteMapping("")
