@@ -1,5 +1,6 @@
 package edu.web.countries.controllers;
 
+import edu.web.countries.exceptions.ServerException;
 import edu.web.countries.models.EndUser.EndUser;
 import edu.web.countries.models.Jwt.Token;
 import edu.web.countries.repositories.TokenRepo;
@@ -42,13 +43,26 @@ public class TokenController {
         Optional<List<Token>> optionalTokens = this.tokenRepo.findAllByUsername(user.getUsername());
         List<Token> tokens = optionalTokens.orElseGet(ArrayList::new);
         return Map.of(
-                "tokens", tokens.stream().map(Token::getDto).collect(Collectors.toList()),
-                "count", tokens.size()
+                "tokens", tokens.stream()
+                        .filter(Token::isValid)
+                        .map(Token::getDto)
+                        .collect(Collectors.toList()),
+                "count", tokens.stream()
+                        .filter(Token::isValid)
+                        .toList()
+                        .size()
         );
     }
 
     @DeleteMapping("")
-    public Map<String, Object> deleteToken() {
-        return null;
+    public Map<String, Object> deleteToken(@RequestHeader("Authorization") String header) {
+        Optional<Token> token = this.tokenRepo.findByToken(header.substring(7));
+        if (token.isEmpty())
+            throw new ServerException("Token is Permanent");
+        token.get().setValid(false);
+        this.tokenRepo.save(token.get());
+        return Map.of(
+                "deleted", "true"
+        );
     }
 }

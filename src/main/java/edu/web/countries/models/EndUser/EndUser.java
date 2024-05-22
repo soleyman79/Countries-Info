@@ -28,7 +28,7 @@ public class EndUser implements UserDetails {
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
-    private boolean active = false;
+    private boolean active;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

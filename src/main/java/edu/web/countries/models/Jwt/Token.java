@@ -28,6 +28,7 @@ public class Token {
     @JsonProperty("expire_date")
     private String expireDate;
     private String username;
+    private boolean valid = true;
 
     public Long getExpireDuration() {
         return Instant.parse(this.expireDate).toEpochMilli() - Instant.now().toEpochMilli();

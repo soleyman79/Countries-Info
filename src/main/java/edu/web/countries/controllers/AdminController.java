@@ -31,7 +31,7 @@ public class AdminController {
 
         endUser.get().setActive(Boolean.parseBoolean(active));
         this.endUserRepository.save(endUser.get());
-        return Map.of("message", String.format("user with username %s has been %s", username, Boolean.parseBoolean(active) ? "activated" : "deactivated"));
+        return Map.of("message", String.format("User with username %s has been %s", username, Boolean.parseBoolean(active) ? "Activated" : "Deactivated"));
     }
 
     @GetMapping("/users")

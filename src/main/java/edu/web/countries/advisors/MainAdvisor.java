@@ -1,8 +1,6 @@
 package edu.web.countries.advisors;
 
-import edu.web.countries.exceptions.BadRequestException;
-import edu.web.countries.exceptions.NotFoundException;
-import edu.web.countries.exceptions.ConflictException;
+import edu.web.countries.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.DisabledException;
@@ -27,5 +25,15 @@ public class MainAdvisor {
     @ExceptionHandler({BadRequestException.class})
     public ResponseEntity<Map<String, Object>> handleBadRequestExceptions(Exception exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("message", exception.getMessage()));
+    }
+
+    @ExceptionHandler({ServerException.class})
+    public ResponseEntity<Map<String, Object>> handleServerExceptions(Exception exception) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("message", exception.getMessage()));
+    }
+
+    @ExceptionHandler({UnauthorizedException.class})
+    public ResponseEntity<Map<String, Object>> handleUnauthorizedException(Exception exception) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("message", exception.getMessage()));
     }
 }

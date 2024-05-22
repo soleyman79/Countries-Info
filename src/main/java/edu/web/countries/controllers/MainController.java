@@ -16,6 +16,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/countries")
+//@PreAuthorize("hasRole('USER') and @authenticationService.validateToken(#request.getHeader('Authorization'))")
 @PreAuthorize("hasRole('USER')")
 public class MainController {
     private final NinjaAPI ninjaAPI;
