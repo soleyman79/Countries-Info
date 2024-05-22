@@ -1,5 +1,7 @@
 package edu.web.countries.configurations;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.web.countries.advisors.JwtExceptionHandler;
 import edu.web.countries.filters.JwtAuthenticationFilter;
 import edu.web.countries.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +18,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
@@ -28,6 +32,7 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
+    private final ObjectMapper objectMapper;
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
@@ -43,14 +48,26 @@ public class SecurityConfig {
     }
 
     @Bean
+    public AuthenticationEntryPoint jwtExceptionHandler() {
+        return new JwtExceptionHandler(objectMapper);
+    }
+
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+        return new JwtExceptionHandler(objectMapper);
+    }
+
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                                .requestMatchers(HttpMethod.POST, "/users/register", "/users/login").permitAll()
-                                .anyRequest().authenticated()
-                )
+                        .requestMatchers(HttpMethod.POST, "/users/register", "/users/login").permitAll()
+                        .anyRequest().authenticated()
+                ).exceptionHandling(exceptionHandling -> exceptionHandling
+                        .authenticationEntryPoint(jwtExceptionHandler())
+                        .accessDeniedHandler(accessDeniedHandler()))
                 .authenticationProvider(authenticationProvider()).addFilterBefore(this.jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
