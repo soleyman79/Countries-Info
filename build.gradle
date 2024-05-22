@@ -55,24 +55,14 @@ dependencies {
 
     // https://mvnrepository.com/artifact/de.codecentric/spring-boot-admin-server
     implementation group: 'de.codecentric', name: 'spring-boot-admin-server', version: '3.2.3'
-
-    implementation group: 'com.mysql', name: 'mysql-connector-j', version: '8.3.0'
-
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-cache
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version: '3.2.5'
-
     // https://mvnrepository.com/artifact/org.ehcache/ehcache
     implementation group: 'org.ehcache', name: 'ehcache', version: '3.10.8'
-
     // https://mvnrepository.com/artifact/net.sf.ehcache/ehcache
     implementation group: 'net.sf.ehcache', name: 'ehcache', version: '2.10.9.2'
-
-
     // https://mvnrepository.com/artifact/org.springframework/spring-context-support
     implementation group: 'org.springframework', name: 'spring-context-support', version: '6.1.6'
-
-
-
 }
 
 tasks.named('test') {

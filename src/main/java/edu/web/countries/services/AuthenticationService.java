@@ -25,19 +25,19 @@ public class AuthenticationService {
         var user = EndUser
                 .builder()
                 .username(request.getUsername())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.USER)
+                .password(this.passwordEncoder.encode(request.getPassword()))
+                .role(Role.ROLE_USER)
                 .build();
 
-        user = userService.save(user);
-        var jwt = jwtService.generateToken(user);
+        user = this.userService.save(user);
+        var jwt = this.jwtService.generateToken(user);
         return JwtAuthenticationResponse.builder().token(jwt).build();
     }
 
     public JwtAuthenticationResponse login(RegisterAndLoginRequest request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-        EndUser user = endUserRepository.findEndUserByUsername(request.getUsername()).orElseThrow(() -> new IllegalArgumentException("Invalid Username or Password"));
-        String jwt = jwtService.generateToken(user);
+        EndUser user = this.endUserRepository.findEndUserByUsername(request.getUsername()).orElseThrow(() -> new IllegalArgumentException("Invalid Username or Password"));
+        String jwt = this.jwtService.generateToken(user);
         return JwtAuthenticationResponse.builder().token(jwt).build();
     }
 }

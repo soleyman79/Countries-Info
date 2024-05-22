@@ -6,6 +6,7 @@ import edu.web.countries.repositories.EndUserRepository;
 import edu.web.countries.services.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -18,15 +19,20 @@ public class AdminConfig implements CommandLineRunner {
     private final EndUserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
+    @Value("${admin.username}")
+    private String adminUsername;
+    @Value("${admin.password}")
+    private String adminPassword;
+
 
     @Override
     public void run(String... args) {
         if (userRepository.count() == 0) {
             EndUser admin = EndUser
                     .builder()
-                    .username("admin")
-                    .password(passwordEncoder.encode("password"))
-                    .role(Role.ADMIN)
+                    .username(this.adminUsername)
+                    .password(passwordEncoder.encode(this.adminPassword))
+                    .role(Role.ROLE_ADMIN)
                     .build();
 
             userService.save(admin);

@@ -3,22 +3,18 @@ package edu.web.countries.configurations;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.web.countries.services.CountriesNowAPI;
 import edu.web.countries.services.NinjaAPI;
-import net.sf.ehcache.Ehcache;
-import net.sf.ehcache.management.CacheConfiguration;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.cache.jcache.JCacheManagerFactoryBean;
 
 @Configuration
 @EnableCaching
 public class APIConfig {
-    @Value("${ninja.token}")
+    @Value("${token.ninja}")
     private String token;
 
     @Bean
@@ -52,10 +48,4 @@ public class APIConfig {
     public CountriesNowAPI countriesNowAPI(RestTemplate restTemplate) {
         return new CountriesNowAPI(restTemplate);
     }
-
-
-
-
-
-
 }

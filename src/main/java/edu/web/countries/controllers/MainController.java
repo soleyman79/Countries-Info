@@ -3,6 +3,7 @@ package edu.web.countries.controllers;
 import edu.web.countries.models.countriesNow.CountryDTO;
 import edu.web.countries.services.CountriesNowAPI;
 import edu.web.countries.services.NinjaAPI;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/countries")
+@PreAuthorize("hasRole('USER')")
 public class MainController {
     private final NinjaAPI ninjaAPI;
     private final CountriesNowAPI countriesNowAPI;
