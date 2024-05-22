@@ -21,7 +21,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AuthenticationService {
     private final EndUserRepo endUserRepo;
-    private final TokenRepo tokenRepo;
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
@@ -32,7 +31,7 @@ public class AuthenticationService {
                 .builder()
                 .username(request.getUsername())
                 .password(this.passwordEncoder.encode(request.getPassword()))
-                .active(true)
+                .active(false)
                 .role(Role.ROLE_USER)
                 .build();
         if (this.endUserRepo.findEndUserByUsername(request.getUsername()).isPresent())
