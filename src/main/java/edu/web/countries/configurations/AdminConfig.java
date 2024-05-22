@@ -33,6 +33,7 @@ public class AdminConfig implements CommandLineRunner {
                     .username(this.adminUsername)
                     .password(passwordEncoder.encode(this.adminPassword))
                     .role(Role.ROLE_ADMIN)
+                    .active(true)
                     .build();
 
             userService.save(admin);

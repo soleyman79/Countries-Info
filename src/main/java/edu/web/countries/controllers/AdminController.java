@@ -1,9 +1,10 @@
 package edu.web.countries.controllers;
 
+import edu.web.countries.exceptions.BadRequestException;
+import edu.web.countries.exceptions.NotFoundException;
 import edu.web.countries.models.EndUser.EndUser;
 import edu.web.countries.repositories.EndUserRepository;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -21,14 +22,16 @@ public class AdminController {
     }
 
     @PutMapping("/users")
-    public String activate(@RequestParam("username") String username, @RequestParam("active") boolean active) {
+    public Map<String, Object> activate(@RequestParam("username") String username, @RequestParam("active") String active) {
         Optional<EndUser> endUser = endUserRepository.findEndUserByUsername(username);
         if (endUser.isEmpty())
-            throw new UsernameNotFoundException("Username not Found");
+            throw new NotFoundException("Username not Found");
+        if (!active.equals("false") && !active.equals("true"))
+            throw new BadRequestException("Parameters are Invalid");
 
-//        endUser.get().
-//        this.endUserRepository.(endUser.get());
-        return String.format("User: %s\nActive: %s", username, active);
+        endUser.get().setActive(Boolean.parseBoolean(active));
+        this.endUserRepository.save(endUser.get());
+        return Map.of("message", String.format("username: %s has been %s", username, Boolean.parseBoolean(active) ? "activated" : "deactivated"));
     }
 
     @GetMapping("/users")

@@ -1,10 +1,8 @@
 package edu.web.countries.controllers;
 
-import edu.web.countries.models.Jwt.JwtAuthenticationResponse;
 import edu.web.countries.models.Jwt.RegisterAndLoginRequest;
 import edu.web.countries.services.AuthenticationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

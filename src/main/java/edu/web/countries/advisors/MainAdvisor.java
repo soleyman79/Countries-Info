@@ -1,5 +1,6 @@
 package edu.web.countries.advisors;
 
+import edu.web.countries.exceptions.BadRequestException;
 import edu.web.countries.exceptions.NotFoundException;
 import edu.web.countries.exceptions.ConflictException;
 import org.springframework.http.HttpStatus;
@@ -21,5 +22,10 @@ public class MainAdvisor {
     @ExceptionHandler({ConflictException.class})
     public ResponseEntity<Map<String, Object>> handleConflictExceptions(Exception exception) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("message", exception.getMessage()));
+    }
+
+    @ExceptionHandler({BadRequestException.class})
+    public ResponseEntity<Map<String, Object>> handleBadRequestExceptions(Exception exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("message", exception.getMessage()));
     }
 }
