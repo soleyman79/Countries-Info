@@ -22,20 +22,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class RegisterTest {
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private static final ObjectMapper objectMapper = new ObjectMapper();
     @Autowired
     private MockMvc mockMvc;
-    @Value("${admin.username}")
-    private String adminUsername;
-    @Value("${admin.password}")
-    private String adminPassword;
 
-    private ResultActions register(String username, String password) throws Exception {
-        String payload = this.objectMapper.writeValueAsString(Map.of(
+    public static ResultActions register(String username, String password, MockMvc mockMvc) throws Exception {
+        String payload = objectMapper.writeValueAsString(Map.of(
                 "username", username,
                 "password", password)
         );
-        return this.mockMvc.
+        return mockMvc.
                 perform(post("/users/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(payload)
@@ -45,7 +41,7 @@ public class RegisterTest {
     @Test
     @Order(1)
     public void registerSuccessfully() throws Exception {
-        this.register("user", "pass")
+        register("successful user", "pass", this.mockMvc)
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.message").value("User Created"));
@@ -53,28 +49,30 @@ public class RegisterTest {
 
     @Test
     @Order(2)
-    public void registerDuplicatedUsername() throws Exception {
-        register("user", "pass");
-        register("user", "pass")
+    public void registerByDuplicatedUsername() throws Exception {
+        register("user", "pass", this.mockMvc);
+        register("user", "pass", this.mockMvc)
                 .andExpect(status().isConflict())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.message").value("Username already Exists"));
+                .andExpect(jsonPath("$.message").value("Username already Exists"))
+        ;
     }
 
     @Test
     @Order(3)
-    public void registerAdminUsername() throws Exception {
-        this.register(this.adminUsername, this.adminPassword)
+    public void registerByAdminUsername(@Value("${admin.username}") String adminUser, @Value("${admin.password}") String adminPass) throws Exception {
+        register(adminUser, adminPass, this.mockMvc)
                 .andExpect(status().isConflict())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.message").value("Username already Exists"));
+                .andExpect(jsonPath("$.message").value("Username already Exists"))
+        ;
     }
 
     @Test
     @Order(4)
     public void registerWithoutUsername() {
         assertThrows(Exception.class, () -> {
-            String payload = this.objectMapper.writeValueAsString(Map.of("password", "pass"));
+            String payload = objectMapper.writeValueAsString(Map.of("password", "pass"));
             this.mockMvc.perform(post("/users/register")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(payload)
@@ -86,7 +84,7 @@ public class RegisterTest {
     @Order(5)
     public void registerWithoutPassword() {
         assertThrows(Exception.class, () -> {
-            String payload = this.objectMapper.writeValueAsString(Map.of("username", "user"));
+            String payload = objectMapper.writeValueAsString(Map.of("username", "user"));
             this.mockMvc.perform(post("/users/register")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(payload)

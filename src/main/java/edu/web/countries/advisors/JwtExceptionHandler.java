@@ -24,13 +24,13 @@ public class JwtExceptionHandler implements AuthenticationEntryPoint, AccessDeni
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         response.setContentType("application/json");
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
-        objectMapper.writeValue(response.getWriter(), "Authentication Error: Login First");
+        objectMapper.writeValue(response.getWriter(), "Authentication Error");
     }
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
         response.setContentType("application/json");
         response.setStatus(HttpStatus.FORBIDDEN.value());
-        objectMapper.writeValue(response.getWriter(), "Authorization Error: Access Denied");
+        objectMapper.writeValue(response.getWriter(), "Authorization Error");
     }
 }
