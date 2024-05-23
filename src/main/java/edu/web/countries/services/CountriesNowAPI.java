@@ -33,7 +33,6 @@ public class CountriesNowAPI {
         return countryDTOs;
     }
 
-
     public Response getAllCountriesResponse() {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");

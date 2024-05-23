@@ -19,4 +19,12 @@ token:
   ninja: 6AEi0xX6fJROGQP1E6iQTQ==0tT5F9mnoZaGY71h
   secret: fdbf77893be4d92dcd153efc9e63e74fed21237ef7caa85b1eaf3caabbb41d77
 
+rabbitmq:
+  queue:
+    name: main-queue
+  exchange:
+    name: main-exchange
+  routing:
+    key: main-routing-key
+
 

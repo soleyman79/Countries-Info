@@ -7,6 +7,7 @@ import edu.web.countries.repositories.EndUserRepo;
 import edu.web.countries.services.AuthenticationService;
 import edu.web.countries.services.CountriesNowAPI;
 import edu.web.countries.services.NinjaAPI;
+import edu.web.countries.services.messageBroker.Producer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,8 +15,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MainConfig {
     @Bean
-    public MainController mainController(NinjaAPI externalAPI, CountriesNowAPI countriesNowAPI) {
-        return new MainController(externalAPI, countriesNowAPI);
+    public MainController mainController(NinjaAPI externalAPI, CountriesNowAPI countriesNowAPI, Producer producer) {
+        return new MainController(externalAPI, countriesNowAPI, producer);
     }
 
     @Bean
