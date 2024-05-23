@@ -22,8 +22,9 @@ public class CountriesNowAPI {
         this.restTemplate = restTemplate;
     }
 
+    @Cacheable(value = "countries")
     public List<CountryDTO> getAllCountries() {
-        Response response = this.getAllCountriesResponse().getBody();
+        Response response = this.getAllCountriesResponse();
         Country[] countries = response.getData();
         List<CountryDTO> countryDTOs = new ArrayList<>();
         for (Country country : countries) {
@@ -32,16 +33,18 @@ public class CountriesNowAPI {
         return countryDTOs;
     }
 
-    @Cacheable("countries")
-    public ResponseEntity<Response> getAllCountriesResponse() {
+
+    public Response getAllCountriesResponse() {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");
         HttpEntity<String> request = new HttpEntity<>(headers);
-        return restTemplate.exchange(
+        ResponseEntity<Response> response = restTemplate.exchange(
                 "https://countriesnow.space/api/v0.1/countries",
                 HttpMethod.GET,
                 request,
                 Response.class
         );
+
+        return response.getBody();
     }
 }
