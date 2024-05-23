@@ -1,5 +1,6 @@
 package edu.web.countries.UserManagement;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -34,6 +35,13 @@ public class LoginTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(payload)
                 );
+    }
+
+    public static String getTokenByResponse(ResultActions response) throws Exception {
+        String responsePayload = response.andReturn().getResponse().getContentAsString();
+        Map<String, Object> responseMap = objectMapper.readValue(responsePayload, new TypeReference<>() {
+        });
+        return String.valueOf(responseMap.get("token"));
     }
 
     @Test

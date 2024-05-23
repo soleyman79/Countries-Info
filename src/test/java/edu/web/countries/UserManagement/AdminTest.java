@@ -61,10 +61,7 @@ public class AdminTest {
     @Order(2)
     public void getUsers(@Value("${admin.username}") String adminUsername, @Value("${admin.password}") String adminPassword) throws Exception {
         ResultActions response = LoginTest.login(adminUsername, adminPassword, this.mockMvc);
-        String responsePayload = response.andReturn().getResponse().getContentAsString();
-        Map<String, Object> responseMap = objectMapper.readValue(responsePayload, new TypeReference<>() {
-        });
-        String token = String.valueOf(responseMap.get("token"));
+        String token = LoginTest.getTokenByResponse(response);
         this.mockMvc.
                 perform(get("/admin/users")
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
