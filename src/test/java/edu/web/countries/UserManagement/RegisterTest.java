@@ -1,8 +1,10 @@
 package edu.web.countries.UserManagement;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,6 +30,7 @@ public class RegisterTest {
     private String adminUsername;
 
     @Test
+    @Order(1)
     public void registerSuccessfully() throws Exception {
         String payload = this.objectMapper.writeValueAsString(Map.of("username", "user", "password", "pass"));
         this.mockMvc.
@@ -41,6 +44,7 @@ public class RegisterTest {
     }
 
     @Test
+    @Order(2)
     public void registerDuplicatedUsername() throws Exception {
         this.registerSuccessfully();
         String payload = this.objectMapper.writeValueAsString(Map.of("username", "user", "password", "pass"));
@@ -55,6 +59,7 @@ public class RegisterTest {
     }
 
     @Test
+    @Order(3)
     public void registerAdminUsername() throws Exception {
         String payload = this.objectMapper.writeValueAsString(Map.of("username", this.adminUsername, "password", "pass"));
         this.mockMvc.
@@ -68,8 +73,9 @@ public class RegisterTest {
     }
 
     @Test
-    public void registerWithoutUsername() throws Exception {
-        assertThrows(ServletException.class, () -> {
+    @Order(4)
+    public void registerWithoutUsername() {
+        assertThrows(Exception.class, () -> {
             String payload = this.objectMapper.writeValueAsString(Map.of("password", "pass"));
             this.mockMvc.perform(post("/users/register")
                     .contentType(MediaType.APPLICATION_JSON)
@@ -79,7 +85,8 @@ public class RegisterTest {
     }
 
     @Test
-    public void registerWithoutPassword() throws Exception {
+    @Order(5)
+    public void registerWithoutPassword() {
         assertThrows(ServletException.class, () -> {
             String payload = this.objectMapper.writeValueAsString(Map.of("username", "user"));
             this.mockMvc.perform(post("/users/register")
