@@ -5,8 +5,6 @@ import edu.web.countries.exceptions.NotFoundException;
 import edu.web.countries.models.EndUser.EndUser;
 import edu.web.countries.repositories.EndUserRepo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,8 +18,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService {
     private final EndUserRepo endUserRepository;
-
-    private final CacheManager cacheManager;
 
 
     public UserDetailsService userDetailsService() {

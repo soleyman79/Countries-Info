@@ -22,7 +22,7 @@ public class CountriesNowAPI {
         this.restTemplate = restTemplate;
     }
 
-    @Cacheable(value = "countries")
+    @Cacheable("countries")
     public List<CountryDTO> getAllCountries() {
         Response response = this.getAllCountriesResponse();
         Country[] countries = response.getData();
@@ -44,7 +44,6 @@ public class CountriesNowAPI {
                 request,
                 Response.class
         );
-
         return response.getBody();
     }
 }

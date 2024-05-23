@@ -5,6 +5,7 @@ import edu.web.countries.models.ninja.Country;
 import edu.web.countries.models.ninja.CountryDTO;
 import edu.web.countries.models.ninja.Weather;
 import edu.web.countries.models.ninja.WeatherDTO;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -23,6 +24,7 @@ public class NinjaAPI {
         this.headers = headers;
     }
 
+    @Cacheable("country")
     public CountryDTO getCountryByName(String name) {
         Country[] countries = this.getCountryResponseByName(name).getBody();
         if (countries.length == 0) {
@@ -31,6 +33,7 @@ public class NinjaAPI {
         return new CountryDTO(countries[0]);
     }
 
+    @Cacheable("Weather")
     public WeatherDTO getWeatherByCountry(String name) {
         CountryDTO countryDTO = this.getCountryByName(name);
         Weather weather = this.getWeatherResponseByCity(countryDTO.getCapital()).getBody();
