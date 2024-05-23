@@ -31,7 +31,7 @@ public class WeatherDTO {
                 "country_name", this.countryName,
                 "capital", this.capital,
                 "wind_speed", this.windSpeed,
-                "wind_degree", this.windDegrees,
+                "wind_degrees", this.windDegrees,
                 "temp", this.temp,
                 "humidity", this.humidity
         );

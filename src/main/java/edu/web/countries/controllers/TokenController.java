@@ -1,6 +1,6 @@
 package edu.web.countries.controllers;
 
-import edu.web.countries.exceptions.ServerException;
+import edu.web.countries.exceptions.BadRequestException;
 import edu.web.countries.models.EndUser.EndUser;
 import edu.web.countries.models.Jwt.Token;
 import edu.web.countries.repositories.TokenRepo;
@@ -58,7 +58,7 @@ public class TokenController {
     public Map<String, Object> deleteToken(@RequestHeader("Authorization") String header) {
         Optional<Token> token = this.tokenRepo.findByToken(header.substring(7));
         if (token.isEmpty())
-            throw new ServerException("Token is Permanent");
+            throw new BadRequestException("Token is Permanent");
         token.get().setValid(false);
         this.tokenRepo.save(token.get());
         return Map.of(
