@@ -5,13 +5,11 @@ import edu.web.countries.services.CountriesNowAPI;
 import edu.web.countries.services.NinjaAPI;
 import edu.web.countries.services.messageBroker.Producer;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -35,6 +33,28 @@ public class MainController {
         return Map.of(
                 "countries", countries,
                 "count", String.valueOf(countries.size())
+        );
+    }
+
+    @GetMapping("/some")
+    public Map<String, Object> getSomeCountries(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int pageSize) {
+        this.producer.sendMessage("all countries");
+
+        List<CountryDTO> allCountries = this.countriesNowAPI.getAllCountries();
+
+        int totalCountries = allCountries.size();
+        int totalPages = (int) Math.ceil((double) totalCountries / pageSize);
+
+        List<CountryDTO> countriesOnPage = allCountries.stream()
+                .skip((long) page * pageSize)
+                .limit(pageSize)
+                .toList();
+
+        return Map.of(
+                "countries", countriesOnPage,
+                "totalCountries", totalCountries,
+                "totalPages", totalPages,
+                "currentPage", page
         );
     }
 
