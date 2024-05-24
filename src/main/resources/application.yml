@@ -10,6 +10,10 @@ spring:
     open-in-view: false
     hibernate:
       ddl-auto: create-drop
+  cache:
+    type: redis
+    redis:
+      time-to-live: 60000
 
 admin:
   username: admin

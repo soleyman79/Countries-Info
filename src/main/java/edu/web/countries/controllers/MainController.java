@@ -16,7 +16,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/countries")
-@PreAuthorize("hasRole('ADMIN')")
+@PreAuthorize("hasRole('USER')")
 public class MainController {
     private final NinjaAPI ninjaAPI;
     private final CountriesNowAPI countriesNowAPI;
